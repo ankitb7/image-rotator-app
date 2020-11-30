@@ -1,22 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import './Panel.css';
+import Number from './components/Number';
 
 const Panel = ({setImage, image, rotatedImage, imageDimensions, renderTime, rotateImage}) => {
     const [angle, setAngle] = useState(0);
 
-    const onAngleChange = e => {
-        if(e.target.value || e.target.value === 0) {
-            const angle = window.Number(e.target.value);
-            setAngle(angle);
-        }
-    };
-
     return (
         <div className='action-panel'>
-            <input className="fileInput"
-                   type="file"
-                   onChange={setImage}/>
+            <input className='fileInput' type='file'
+                   accept='image/*' onChange={setImage}/>
             {image && <div className='rotate-panel'>
                 <div className='info'>
                     {`Original Image Dimensions: ${imageDimensions.width}px width x ${imageDimensions.height}px height`}
@@ -25,7 +18,7 @@ const Panel = ({setImage, image, rotatedImage, imageDimensions, renderTime, rota
                     {`Render Time: ${renderTime?.toFixed(2)}ms`}
                 </div>}
                 <p>
-                    <input type='text' placeholder='Degrees' onChange={onAngleChange}/>
+                    <Number setAngle={setAngle}/>
                     <button onClick={() => rotateImage(angle)}>Apply</button>
                 </p>
             </div>}
