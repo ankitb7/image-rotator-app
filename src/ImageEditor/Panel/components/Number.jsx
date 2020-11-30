@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {DEGREE_PATTERN} from '../../../App.constants';
 
 const Number = ({setAngle}) => {
-    const [sanitizedValue, setSanitizedValue] = useState('');
+    const [sanitizedValue, setSanitizedValue] = useState(0);
 
     const onInputChange = (e) => {
         const inputValue = (e.target.validity.valid) ? window.Number(e.target.value) : sanitizedValue;
