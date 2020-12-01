@@ -13,3 +13,13 @@
 .info {
     margin: 1em 0;
 }
+
+.file-input {
+    margin: 1em 0;
+}
+
+.panel-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}

@@ -1,9 +1,10 @@
 .image-frame {
     text-align: center;
     margin: 5px 15px;
-    height: 350px;
-    width: 350px;
-    border: 1px solid;
+    height: 78vh;
+    width: 78vh;
+    border: 1px solid whitesmoke;
+    background-color: white;
 }
 
 img {

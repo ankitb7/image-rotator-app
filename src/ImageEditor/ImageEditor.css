@@ -6,3 +6,54 @@
     width: 100%;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+}
+
+.page-header {
+    flex: none;
+    padding: 15px;
+    font-size: 1.75em;
+    font-weight: bold;
+    background: #5AB9EA;
+    color: white;
+    text-align: center;
+}
+
+.page-content {
+    background: whitesmoke;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar-left {
+    background: #5AB9EA;
+    padding: 2em;
+    color: white;
+    width: 35%
+}
+
+.main-content {
+    width: 100%;
+    padding: 10px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+}
+
+@media (max-width: 768px) {
+    .page-content {
+        flex-direction: column;
+    }
+    .sidebar-left, .content-container {
+        width: 100%;
+    }
+}

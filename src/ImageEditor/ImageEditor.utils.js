@@ -26,20 +26,25 @@ export const getImageCanvasAndContext = (image) => {
     return {canvas, context};
 };
 
-export const rotate = (originalImageData, height, width, angle) => {
-    const sin = Math.sin(angle);
-    const cos = Math.cos(angle);
+export const rotate = (imageData, angle) => {
+    const {originalImageData, height, width} = imageData;
+    const radians = angle * (Math.PI / 180);
+
+    const sin = Math.sin(radians);
+    const cos = Math.cos(radians);
+
     const {centerHeight, centerWidth} = getImageCenter(height, width);
+
     const {newHeight, newWidth} = calculateNewDimensions(width, height, sin, cos);
 
     const newImageData = new Uint8ClampedArray((newWidth * 4) * newHeight);
 
-    const rgbaPixelWidth = width * 4;
+    const adjustedWidth = width * 4;
 
     let y = 0;
 
-    for (let i = 0; i < rgbaPixelWidth * height; i = i + 4) {
-        const x = Math.round((i % rgbaPixelWidth) / 4);
+    for (let i = 0; i < adjustedWidth * height; i = i + 4) {
+        const x = Math.round((i % adjustedWidth) / 4);
 
         //Get x, y co-ordinates with respect to original image center
         let adjustedX = x - centerWidth;
@@ -60,7 +65,7 @@ export const rotate = (originalImageData, height, width, angle) => {
             }
         }
 
-        if (i % rgbaPixelWidth === 0) {
+        if (i % adjustedWidth === 0) {
             y++;
         }
     }

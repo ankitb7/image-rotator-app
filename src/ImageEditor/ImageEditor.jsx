@@ -16,6 +16,8 @@ const ImageEditor = () => {
 
         let reader = new FileReader();
         let file = e.target.files[0];
+
+        //Clear out the rotate image each time a new image is set
         setRotatedImage(null);
 
         reader.onloadend = () => {
@@ -26,9 +28,11 @@ const ImageEditor = () => {
             let img = new Image();
             img.onload = function() {
                 setImageDimensions({width: this.width, height: this.height});
+
                 const {context} = getImageCanvasAndContext(img);
                 context.drawImage(img, 0, 0 );
                 const imageData = context.getImageData(0, 0, img.width, img.height);
+
                 setFile(imageData.data);
             };
             img.src = reader.result;
@@ -38,9 +42,8 @@ const ImageEditor = () => {
 
     const rotateImage = useCallback((angle) => {
         const startTime = performance.now();
-        const radians = angle * (Math.PI / 180);
-        const rotatedImageData = rotate(file, imageDimensions.height, imageDimensions.width, radians);
-        console.log('rotatedImageData', rotatedImageData);
+
+        const rotatedImageData = rotate({originalImageData: file, height: imageDimensions.height, width: imageDimensions.width}, angle);
 
         const {canvas, context} = getImageCanvasAndContext(rotatedImageData);
         context.putImageData(rotatedImageData, 0, 0);
@@ -49,16 +52,26 @@ const ImageEditor = () => {
         rotatedImage.src = canvas.toDataURL();
 
         setRotatedImage(<img src={canvas.toDataURL()} alt='Rotated Document'/>);
+
         const endTime = performance.now();
         setRenderTime(endTime - startTime);
     }, [file, imageDimensions]);
 
     return (
-        <div className='image-editor'>
-            <ImageFrame image={image} rotatedImage={rotatedImage}/>
-            <Panel setImage={changeImage} image={image}
-                   imageDimensions={imageDimensions} rotatedImage={rotatedImage}
-                   renderTime={renderTime} rotateImage={rotateImage}/>
+        <div className='main-container'>
+            <header className='page-header'>
+                Image Rotator Application
+            </header>
+            <div className='page-content'>
+                <div className='sidebar-left'>
+                    <Panel setImage={changeImage} image={image}
+                           imageDimensions={imageDimensions} rotatedImage={rotatedImage}
+                           renderTime={renderTime} rotateImage={rotateImage}/>
+                </div>
+                <div className='content-container'>
+                    <ImageFrame image={image} rotatedImage={rotatedImage}/>
+                </div>
+            </div>
         </div>
     );
 };

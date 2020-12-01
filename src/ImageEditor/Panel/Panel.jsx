@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import './Panel.css';
 import Number from './components/Number';
+import './Panel.css';
 
 const Panel = ({setImage, image, rotatedImage, imageDimensions, renderTime, rotateImage}) => {
     const [angle, setAngle] = useState(0);
 
     return (
         <div className='action-panel'>
-            <input className='fileInput' type='file'
+            <div className='panel-header'>Editor Panel</div>
+            <input className='file-input' type='file'
                    accept='image/*' onChange={setImage}/>
             {image && <div className='rotate-panel'>
                 <div className='info'>

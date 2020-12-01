@@ -4,9 +4,11 @@ import './ImageFrame.css';
 
 const ImageFrame = ({image, rotatedImage}) => {
     const finalImage = rotatedImage ? rotatedImage : image;
-    return <div className='image-frame'>
-        {finalImage ? finalImage : <div className="placeholder-text">Please select an image</div>}
-    </div>
+    return (
+        <div className='image-frame'>
+            {finalImage ? finalImage : <div className='placeholder-text'>Please select an image</div>}
+        </div>
+    );
 };
 
 ImageFrame.propTypes = {

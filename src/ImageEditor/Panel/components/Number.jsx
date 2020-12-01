@@ -10,7 +10,7 @@ const Number = ({setAngle}) => {
         setSanitizedValue(inputValue);
     };
 
-    useEffect(() => setAngle(sanitizedValue), [sanitizedValue]);
+    useEffect(() => setAngle(sanitizedValue), [setAngle, sanitizedValue]);
 
     return (
         <input type='text' pattern={DEGREE_PATTERN}
