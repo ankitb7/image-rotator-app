@@ -17,7 +17,7 @@ const ImageEditor = () => {
         let reader = new FileReader();
         let file = e.target.files[0];
 
-        //Clear out the rotate image each time a new image is set
+        //Clear out the rotated image each time a new image is set
         setRotatedImage(null);
 
         reader.onloadend = () => {
