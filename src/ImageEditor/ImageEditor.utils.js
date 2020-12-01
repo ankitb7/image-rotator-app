@@ -1,11 +1,11 @@
-const calculateNewDimensions = (height, width, sin, cos) => {
+export const calculateNewDimensions = (height, width, sin, cos) => {
     const newHeight  = Math.round(Math.abs(height * cos) + Math.abs(width * sin));
     const newWidth  = Math.round(Math.abs(width * cos) + Math.abs(height * sin));
 
     return {newWidth, newHeight};
 };
 
-const transform = (newX, newY, centerX, centerY, sin, cos) => {
+export const transform = (newX, newY, centerX, centerY, sin, cos) => {
     //Rotate x,y co-ordinates by provided angle on the center
     const rotatedX = (newX * cos) - (newY * sin);
     const rotatedY = (newX * sin) + (newY * cos);
@@ -14,17 +14,9 @@ const transform = (newX, newY, centerX, centerY, sin, cos) => {
     return {x: Math.round(rotatedX + centerX), y: Math.round(rotatedY + centerY)};
 };
 
-const getImageCenter = (height, width) => ({centerHeight: Math.trunc(height/2), centerWidth: Math.trunc(width/2)});
+export const getImageCenter = (height, width) => ({centerHeight: Math.trunc(height/2), centerWidth: Math.trunc(width/2)});
 
-const isRotatedPointInBounds = (newHeight, newWidth, newX, newY) => newX >= 0 && newX < newWidth && newY >= 0 && newY < newHeight;
-
-export const getImageCanvasAndContext = (image) => {
-    const canvas = document.createElement('canvas');
-    const context = canvas.getContext('2d');
-    canvas.width = image.width;
-    canvas.height = image.height;
-    return {canvas, context};
-};
+export const isRotatedPointInBounds = (newHeight, newWidth, newX, newY) => newX >= 0 && newX < newWidth && newY >= 0 && newY < newHeight;
 
 export const rotate = (imageData, angle) => {
     const {originalImageData, height, width} = imageData;
@@ -69,5 +61,5 @@ export const rotate = (imageData, angle) => {
             y++;
         }
     }
-    return new ImageData(Uint8ClampedArray.from(newImageData), newWidth, newHeight);
+    return {newImageData, newWidth, newHeight};
 };

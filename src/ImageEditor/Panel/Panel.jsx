@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Number from './components/Number';
 import './Panel.css';
 
-const Panel = ({setImage, image, rotatedImage, imageDimensions, renderTime, rotateImage}) => {
+const Panel = ({changeImage, image, rotatedImage, imageDimensions, renderTime, rotateImage}) => {
     const [angle, setAngle] = useState(0);
 
     return (
         <div className='action-panel'>
             <div className='panel-header'>Editor Panel</div>
             <input className='file-input' type='file'
-                   accept='image/*' onChange={setImage}/>
+                   accept='image/*' onChange={changeImage}/>
             {image && <div className='rotate-panel'>
                 <div className='info'>
                     {`Original Image Dimensions: ${imageDimensions.width}px width x ${imageDimensions.height}px height`}
@@ -28,7 +28,7 @@ const Panel = ({setImage, image, rotatedImage, imageDimensions, renderTime, rota
 };
 
 Panel.propTypes = {
-    setImage: PropTypes.func,
+    changeImage: PropTypes.func,
     image: PropTypes.any,
     imageDimensions: PropTypes.shape({}),
     rotatedImage: PropTypes.any,
@@ -37,7 +37,7 @@ Panel.propTypes = {
 };
 
 Panel.defaultProps = {
-    setImage: () => {},
+    changeImage: () => {},
     image: null,
     rotatedImage: null,
     imageDimensions: {width: 0, height: 0},

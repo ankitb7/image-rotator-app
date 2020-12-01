@@ -1,9 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import {shallow} from 'enzyme';
+import {expect} from 'chai';
 import App from './App';
 
-test('Renders application header', () => {
-  render(<App />);
-  const header = screen.getByRole('banner');
-  expect(header).toBeInTheDocument();
+describe('App', () => {
+    it('App should render ImageEditor', () => {
+        const wrapper = shallow(<App />);
+        expect(wrapper.find('ImageEditor')).to.have.length(1);
+    });
 });

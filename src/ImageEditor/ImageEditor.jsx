@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {getImageCanvasAndContext, rotate} from './ImageEditor.utils';
+import {rotate} from './ImageEditor.utils';
 import ImageFrame from './ImageFrame/ImageFrame';
 import Panel from './Panel/Panel';
 import './ImageEditor.css';
@@ -40,10 +40,20 @@ const ImageEditor = () => {
         reader.readAsDataURL(file);
     };
 
+    const getImageCanvasAndContext = (image) => {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = image.width;
+        canvas.height = image.height;
+        return {canvas, context};
+    };
+
     const rotateImage = useCallback((angle) => {
         const startTime = performance.now();
 
-        const rotatedImageData = rotate({originalImageData: file, height: imageDimensions.height, width: imageDimensions.width}, angle);
+        const rotatedImageArray = rotate({originalImageData: file, height: imageDimensions.height, width: imageDimensions.width}, angle);
+        const {newImageData, newWidth, newHeight} = rotatedImageArray;
+        const rotatedImageData = new ImageData(Uint8ClampedArray.from(newImageData), newWidth, newHeight);
 
         const {canvas, context} = getImageCanvasAndContext(rotatedImageData);
         context.putImageData(rotatedImageData, 0, 0);
@@ -64,7 +74,7 @@ const ImageEditor = () => {
             </header>
             <div className='page-content'>
                 <div className='sidebar-left'>
-                    <Panel setImage={changeImage} image={image}
+                    <Panel changeImage={changeImage} image={image}
                            imageDimensions={imageDimensions} rotatedImage={rotatedImage}
                            renderTime={renderTime} rotateImage={rotateImage}/>
                 </div>
