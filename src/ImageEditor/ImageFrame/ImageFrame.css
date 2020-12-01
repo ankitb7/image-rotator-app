@@ -15,4 +15,5 @@ img {
 .placeholder-text {
     position: relative;
     top: 45%;
+    color: lightslategrey;
 }
