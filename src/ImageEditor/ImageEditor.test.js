@@ -22,13 +22,14 @@ describe('ImageEditor', () => {
     });
 
     it('transform should work correctly', () => {
-        const result = transform(90, 90, 10, 10, Math.sin(45), Math.cos(45));
-        expect(result).to.eql({'x': -19, 'y': 134});
+        const radians = 45 * (Math.PI / 180);
+        const result = transform(90, 90, 10, 10, Math.sin(radians), Math.cos(radians), Math.tan(radians/2));
+        expect(result).to.eql({'x': 10, 'y': 137});
     });
 
     it('rotate should work correctly', () => {
        const result = rotate({originalImageData: [0, 1, 2, 3, 4, 5, 6, 7], height: 2, width: 2}, 45);
-       const newImageData = new Uint8ClampedArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 6, 7]);
+       const newImageData = new Uint8ClampedArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 6, 7]);
        expect(result).to.eql({
             'newHeight': 3,
             'newWidth': 3,

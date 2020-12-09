@@ -5,10 +5,17 @@ export const calculateNewDimensions = (height, width, sin, cos) => {
     return {newWidth, newHeight};
 };
 
-export const transform = (newX, newY, centerX, centerY, sin, cos) => {
-    //Rotate x,y co-ordinates by provided angle on the center
-    const rotatedX = (newX * cos) - (newY * sin);
-    const rotatedY = (newX * sin) + (newY * cos);
+//Transform method uses 3 shear technique to rotate image without aliasing
+export const transform = (newX, newY, centerX, centerY, sin, cos, tan) => {
+    //First shear
+    let rotatedX = Math.round(newX - (newY * tan));
+    let rotatedY = newY;
+
+    //Second shear
+    rotatedY = Math.round((rotatedX * sin) + rotatedY);
+
+    //Third shear
+    rotatedX = Math.round(rotatedX - (rotatedY * tan));
 
     //Add center co-ordinates to get actual x,y co-ordinates
     return {x: Math.round(rotatedX + centerX), y: Math.round(rotatedY + centerY)};
@@ -24,6 +31,7 @@ export const rotate = (imageData, angle) => {
 
     const sin = Math.sin(radians);
     const cos = Math.cos(radians);
+    const tan = Math.tan(radians/2);
 
     const {centerHeight, centerWidth} = getImageCenter(height, width);
 
@@ -43,7 +51,7 @@ export const rotate = (imageData, angle) => {
         let adjustedY = y - centerHeight;
 
         //Apply transformations to the co-ordinates to rotate them by given angle
-        const transformedPosition = transform(adjustedX, adjustedY, centerWidth, centerHeight, sin, cos);
+        const transformedPosition = transform(adjustedX, adjustedY, centerWidth, centerHeight, sin, cos, tan);
 
         //Adjust co-ordinates according to new width, height (new center)
         transformedPosition.x += Math.round((newWidth - width) / 2.0);

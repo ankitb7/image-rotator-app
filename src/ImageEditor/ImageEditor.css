@@ -10,6 +10,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    position: absolute;
+    width: 100%;
     height: 100%;
 }
 
@@ -21,6 +23,7 @@
     background: #5AB9EA;
     color: white;
     text-align: center;
+    height: 50px;
 }
 
 .page-content {
@@ -28,13 +31,14 @@
     padding: 20px;
     display: flex;
     flex-direction: row;
+    flex-grow: 1;
 }
 
 .sidebar-left {
     background: #5AB9EA;
     padding: 2em;
     color: white;
-    width: 35%
+    width: 300px;
 }
 
 .main-content {

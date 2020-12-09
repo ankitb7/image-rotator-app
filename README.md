@@ -1,12 +1,12 @@
 # Image Rotation Application
 
-This project rotates an image by specified degrees.
+This project rotates an image by specified degrees without aliasing.
 
 Try it out here: https://ankitb7.github.io/image-rotator-app/
 
 ## Algorithm
 
-The approach used to rotate the image is applying a translation matrix to rotate image co-ordinates.
+The approach used to rotate the image is applying a 3 shear translation matrix to rotate image co-ordinates.
 
 Following are the steps followed in the algorithm:
 
